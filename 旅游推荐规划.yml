@@ -1,0 +1,1849 @@
+flowMeta:
+  name: 景点AI讲解员db0f19
+  description: 画布038
+  avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/common/emojiitem_00_10@2x.png
+  avatarColor: '#FFEAD5'
+  advancedConfig: '{"prologue":{"enabled":true,"inputExample":["请帮我介绍北京故宫","请帮我介绍北京故宫里的乾清宫","安徽黄山"],"prologueText":"你好，想去哪里玩呢？"},"needGuide":false,"speechToText":{"enabled":true},"textToSpeech":{"enabled":false,"vcn":"x4_lingxiaoying_en"},"feedback":{"enabled":true}}'
+  category: 15
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: -854.4843386807864
+      y: 1166.5017907212505
+    positionAbsolute:
+      x: -854.4843386807864
+      y: 1166.5017907212505
+    type: 开始节点
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: 61df8bbe-abd6-4775-bdb6-252016d15558
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam:
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        appId: a01c2bc7
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 4541.423420256701
+      y: 526.8420201268883
+    positionAbsolute:
+      x: 4541.423420256701
+      y: 526.8420201268883
+    type: 结束节点
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references:
+      - children:
+        - references:
+          - originId: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+            id: aa2b495b-4ca8-4c97-965c-b50cbd65368a
+            label: sid
+            type: string
+            value: sid
+            fileType: ''
+          - originId: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+            id: 9269ef04-4bab-448a-8508-b35c2fcd98aa
+            label: code
+            type: integer
+            value: code
+            fileType: ''
+          - originId: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+            id: 3196c434-f321-4292-8d4c-aefdd2110c4a
+            label: msg
+            type: string
+            value: msg
+            fileType: ''
+          - originId: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+            children:
+            - originId: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+              id: 10f97b32-21df-4de0-b73a-f9026ed8227f
+              label: voice_url
+              type: string
+              value: data.voice_url
+              parentType: object
+              fileType: ''
+            id: 74727fb7-2000-4b49-a141-24ffb0aa59a1
+            label: data
+            type: object
+            value: data
+            fileType: ''
+          label: ''
+          value: ''
+        label: 超拟人合成_1
+        parentNode: true
+        value: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+      - children:
+        - references:
+          - originId: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+            id: a282602b-bc37-42ef-a0ca-b5c39c7d9ca4
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 大模型_2
+        parentNode: true
+        value: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+      - children:
+        - references:
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: aa7e0e9a-983a-4065-9b4f-ab8abee64ac1
+            label: msg
+            type: string
+            value: msg
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children:
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+              label: summary
+              type: string
+              value: result.summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9035b42e-d825-4263-a3f6-8528a1fa28c9
+              label: img
+              type: string
+              value: result.img
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: e53d48df-d96e-4297-8437-26fdf6216a86
+              label: domain
+              type: string
+              value: result.domain
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: b10e3026-a6c8-4c66-9d7b-5b45f8746e1a
+              label: name
+              type: string
+              value: result.name
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 91a0b750-a76e-4ea3-9a67-073f4e04182b
+              label: is_high_summary
+              type: boolean
+              value: result.is_high_summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: abe71f0e-67cc-488d-a114-6612ef3ddb61
+              label: siteName
+              type: string
+              value: result.siteName
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 7f9f764e-97f0-4b8e-98bc-4a4a12c315fd
+              label: source
+              type: string
+              value: result.source
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 761a52fe-70da-4ccf-b3b3-e75855621c7b
+              label: type
+              type: string
+              value: result.type
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9ba4e0bf-1e78-4eef-821d-35bfc24c186c
+              label: url
+              type: string
+              value: result.url
+              parentType: array-object
+              fileType: ''
+            id: 9a901f3c-b661-4031-aa80-36ddb68612fb
+            label: result
+            type: array-object
+            value: result
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: ee0f3baf-d730-4e15-89a8-82096ec46238
+            label: rc
+            type: string
+            value: rc
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children: [
+              ]
+            id: 52723d3e-1401-4ad5-ae2c-3556fc8b14cf
+            label: semantic
+            type: array-string
+            value: semantic
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 013fa6ca-413c-4eba-9c5a-880ee033da4f
+            label: total
+            type: string
+            value: total
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 06a39ba6-4e94-46af-a763-b54d41b0e1f1
+            label: offset
+            type: string
+            value: offset
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: f298a826-f008-457f-a571-7f5c667233ef
+            label: limit
+            type: string
+            value: limit
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 352c596e-8a0a-4046-867f-18cef84950a8
+            label: sid
+            type: string
+            value: sid
+            fileType: ''
+          label: ''
+          value: ''
+        label: bing搜索_1
+        parentNode: true
+        value: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+      - children:
+        - references:
+          - originId: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+            id: 0cba8a29-f9fd-42f4-a7a6-70b8b29792c2
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 文本处理节点_1
+        parentNode: true
+        value: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      - children:
+        - references:
+          - originId: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+            id: 35e12320-cb8b-466a-b378-c799e8e93e85
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 大模型_1
+        parentNode: true
+        value: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+      - children:
+        - references:
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+            label: city
+            type: string
+            value: city
+            fileType: ''
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+            label: tourist_spot
+            type: string
+            value: tourist_spot
+            fileType: ''
+          label: ''
+          value: ''
+        label: 变量提取器_2
+        parentNode: true
+        value: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+      status: ''
+      nodeMeta:
+        aliasName: 结束
+        nodeType: 基础节点
+      inputs:
+      - id: d6d0f817-5407-4ac7-a99d-d23398c6ddd9
+        name: audio
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: data.voice_url
+              id: 10f97b32-21df-4de0-b73a-f9026ed8227f
+              nodeId: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+            contentErrMsg: ''
+        fileType: ''
+      outputs: [
+        ]
+      nodeParam:
+        template: |-
+          ​<audio id="audio" controls="" preload="none">
+                <source id="mp3" src="{{audio}}">
+          </audio>
+        streamOutput: false
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        templateErrMsg: ''
+        appId: a01c2bc7
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+        outputMode: 1
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  - id: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+    dragging: false
+    selected: false
+    width: 287
+    height: 123
+    position:
+      x: 887.8230421353692
+      y: 292.44541625606195
+    positionAbsolute:
+      x: 887.8230421353692
+      y: 292.44541625606195
+    type: 大模型
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 大模型_1
+      labelEdit: false
+      references:
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      - children:
+        - references:
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+            label: city
+            type: string
+            value: city
+            fileType: ''
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+            label: tourist_spot
+            type: string
+            value: tourist_spot
+            fileType: ''
+          label: ''
+          value: ''
+        label: 变量提取器_2
+        parentNode: true
+        value: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+      status: ''
+      nodeMeta:
+        aliasName: 大模型_1
+        nodeType: 基础节点
+      inputs:
+      - id: 09b1f7aa-7c8d-4786-8972-5231ce0f7643
+        name: city
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: city
+              id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      - id: 72a43ac3-cb4d-4417-8931-c32e0b5557e7
+        name: tourist_spot
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: tourist_spot
+              id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      - id: f589037a-7177-4bac-9727-a6a95c1816c1
+        name: food
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: food
+              id: 622f799f-2019-4cb2-86de-325f39930436
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: c0da5d0e-df2b-4666-80b2-ed5ddf6f158b
+        name: REASONING_CONTENT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 模型思考过程
+        customParameterType: deepseekr1
+      - id: 35e12320-cb8b-466a-b378-c799e8e93e85
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: ''
+      nodeParam:
+        topK: 4
+        template: |+
+          角色
+          你是一名资深的旅游规划师，擅长为用户提供专业、详实、个性化的旅游规划建议，包括路线安排、天气提示、美食推荐等全方位信息。
+
+          工作方法
+          首先，判断用户是否提供了明确的旅游意向（如具体的城市、景点、美食或旅行主题）。如果信息不足（例如仅说“推荐个地方玩”），则输出 null。
+
+          如果用户提供了足够的限定条件（如城市、景点、美食等），则你要基于真实掌握的信息，为用户制定完整的旅游规划。你的规划内容应包括：整体行程路线安排、各景点间的交通衔接、当地天气情况与出行建议、特色美食推荐与用餐安排、住宿建议、实用注意事项等。所有信息必须真实可靠，禁止凭空编造。
+
+          背景信息
+          用户咨询的城市：{{city}}
+          用户感兴趣的景点：{{tourist_spot}}
+          用户想了解的美食：{{food}}
+
+          输出格式
+          如果无法基于已有信息提供可靠规划，直接输出 null。
+
+          如果信息充分，请按以下结构输出（可根据实际情况微调顺序）：
+
+          行程概览：一句话概括本次旅游的总体特色与推荐天数。
+
+          每日路线：按天列出具体行程安排，包括上午、下午、晚上的活动与景点，注明各景点间的交通方式与耗时。
+
+          天气与出行建议：根据当地当季气候，提供穿衣建议、防晒防雨准备、最佳出行时段等。
+
+          美食安排：推荐沿途特色餐厅或小吃，标注位置与用餐时间建议，与用户已指定的美食偏好关联。
+
+          住宿建议：推荐适合的住宿区域与酒店类型，说明与行程路线的便利性。
+
+          实用贴士：门票预订、交通卡、注意事项、避坑建议、当地文化礼仪等。
+
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        modelId: 10000027
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        auditing: default
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+        llmId: 10000027
+        url: wss://spark-api.xf-yun.com/x2
+        multiMode: false
+        uid: '16611811557'
+        modelName: Spark X2
+        patchId: '0'
+        isThink: true
+        templateErrMsg: ''
+        domain: spark-x
+        appId: a01c2bc7
+        maxTokens: 2048
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: spark-x
+        respFormat: 0
+        llmIdErrMsg: ''
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/largeModelIcon.png
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
+      updatable: false
+  - id: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+    dragging: false
+    selected: false
+    width: 277
+    height: 123
+    position:
+      x: 880.3138878966217
+      y: 1220.890450414827
+    positionAbsolute:
+      x: 880.3138878966217
+      y: 1220.890450414827
+    type: 文本拼接
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 文本处理节点_1
+      labelEdit: false
+      references:
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      - children:
+        - references:
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+            label: city
+            type: string
+            value: city
+            fileType: ''
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+            label: tourist_spot
+            type: string
+            value: tourist_spot
+            fileType: ''
+          label: ''
+          value: ''
+        label: 变量提取器_2
+        parentNode: true
+        value: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+      status: ''
+      nodeMeta:
+        aliasName: 文本处理节点_1
+        nodeType: 工具
+      inputs:
+      - id: 28fbedc4-bceb-43c0-8b50-d5ba71502cdb
+        name: city
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: city
+              id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      - id: c4f22095-d8a0-4953-b1e2-b320f19eff5b
+        name: tourist_spot
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: tourist_spot
+              id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      - id: 0c9c3ef1-0f82-4591-ad36-0e1314d61c8b
+        name: food
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: food
+              id: 622f799f-2019-4cb2-86de-325f39930436
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 0cba8a29-f9fd-42f4-a7a6-70b8b29792c2
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+      nodeParam:
+        uid: '20342301088'
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        separatorErrMsg: ''
+        appId: a01c2bc7
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+        prompt: |-
+          "{{city}}" "{{tourist_spot}}"
+          "{{food}}"
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/text-splicing-icon.png
+      description: 用于按照指定格式规则处理多个字符串变量
+      updatable: false
+  - id: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+    dragging: false
+    selected: false
+    width: 361
+    height: 123
+    position:
+      x: 2045.3578047927213
+      y: 455.90772710373693
+    positionAbsolute:
+      x: 2045.3578047927213
+      y: 455.90772710373693
+    type: 大模型
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 大模型_2
+      labelEdit: false
+      references:
+      - children:
+        - references:
+          - originId: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+            id: 35e12320-cb8b-466a-b378-c799e8e93e85
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 大模型_1
+        parentNode: true
+        value: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      - children:
+        - references:
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: aa7e0e9a-983a-4065-9b4f-ab8abee64ac1
+            label: msg
+            type: string
+            value: msg
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children:
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+              label: summary
+              type: string
+              value: result.summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9035b42e-d825-4263-a3f6-8528a1fa28c9
+              label: img
+              type: string
+              value: result.img
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: e53d48df-d96e-4297-8437-26fdf6216a86
+              label: domain
+              type: string
+              value: result.domain
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: b10e3026-a6c8-4c66-9d7b-5b45f8746e1a
+              label: name
+              type: string
+              value: result.name
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 91a0b750-a76e-4ea3-9a67-073f4e04182b
+              label: is_high_summary
+              type: boolean
+              value: result.is_high_summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: abe71f0e-67cc-488d-a114-6612ef3ddb61
+              label: siteName
+              type: string
+              value: result.siteName
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 7f9f764e-97f0-4b8e-98bc-4a4a12c315fd
+              label: source
+              type: string
+              value: result.source
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 761a52fe-70da-4ccf-b3b3-e75855621c7b
+              label: type
+              type: string
+              value: result.type
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9ba4e0bf-1e78-4eef-821d-35bfc24c186c
+              label: url
+              type: string
+              value: result.url
+              parentType: array-object
+              fileType: ''
+            id: 9a901f3c-b661-4031-aa80-36ddb68612fb
+            label: result
+            type: array-object
+            value: result
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: ee0f3baf-d730-4e15-89a8-82096ec46238
+            label: rc
+            type: string
+            value: rc
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children: [
+              ]
+            id: 52723d3e-1401-4ad5-ae2c-3556fc8b14cf
+            label: semantic
+            type: array-string
+            value: semantic
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 013fa6ca-413c-4eba-9c5a-880ee033da4f
+            label: total
+            type: string
+            value: total
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 06a39ba6-4e94-46af-a763-b54d41b0e1f1
+            label: offset
+            type: string
+            value: offset
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: f298a826-f008-457f-a571-7f5c667233ef
+            label: limit
+            type: string
+            value: limit
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 352c596e-8a0a-4046-867f-18cef84950a8
+            label: sid
+            type: string
+            value: sid
+            fileType: ''
+          label: ''
+          value: ''
+        label: bing搜索_1
+        parentNode: true
+        value: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+      - children:
+        - references:
+          - originId: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+            id: 0cba8a29-f9fd-42f4-a7a6-70b8b29792c2
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 文本处理节点_1
+        parentNode: true
+        value: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+      - children:
+        - references:
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+            label: city
+            type: string
+            value: city
+            fileType: ''
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+            label: tourist_spot
+            type: string
+            value: tourist_spot
+            fileType: ''
+          label: ''
+          value: ''
+        label: 变量提取器_2
+        parentNode: true
+        value: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+      status: ''
+      nodeMeta:
+        aliasName: 大模型_2
+        nodeType: 基础节点
+      inputs:
+      - id: 6d469f40-c310-47f7-a137-37a2c4573e7e
+        name: model_knowledge
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: 35e12320-cb8b-466a-b378-c799e8e93e85
+              nodeId: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+            contentErrMsg: ''
+        fileType: ''
+      - id: cade5944-d8b7-47dc-b8d0-13663f1c1b00
+        name: serch_info
+        nameErrMsg: ''
+        schema:
+          type: array-object
+          value:
+            type: ref
+            content:
+              name: result
+              id: 9a901f3c-b661-4031-aa80-36ddb68612fb
+              nodeId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            contentErrMsg: ''
+        fileType: ''
+      - id: da19e4f0-bc79-46d9-a2a5-27800746fd85
+        name: city
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: city
+              id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      - id: a70f581e-be4d-4c22-8c78-c083d43b099b
+        name: tourist_spot
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: tourist_spot
+              id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      - id: 2d4a224f-4748-4745-98c3-f717dea6bfc5
+        name: food
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: food
+              id: 622f799f-2019-4cb2-86de-325f39930436
+              nodeId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: bc515d7d-068d-4e9e-b91e-6dc9837bc34c
+        name: REASONING_CONTENT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 模型思考过程
+        customParameterType: deepseekr1
+      - id: a282602b-bc37-42ef-a0ca-b5c39c7d9ca4
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: ''
+      nodeParam:
+        topK: 4
+        template: |
+          角色
+          你是一名资深的旅游推荐官，擅长基于真实信息为用户提供专业、详实、个性化的旅游推荐，涵盖路线安排、天气提示、美食推荐等内容。
+
+          输入资料
+          用户咨询的城市：{{city}}
+          用户感兴趣的景点：{{tourist_spot}}
+          用户想了解的美食：{{food}}
+          大模型对该城市/景点的介绍：
+          """
+          {{model_knowledge}}
+          """
+          网络搜索到的相关信息：
+          """
+          {{search_info}}
+          """
+
+          工作方法
+          你要严格基于输入资料，为用户制定完整的旅游推荐方案。推荐内容应包括：整体行程路线安排、各景点间的交通衔接、当地天气情况与出行建议、特色美食推荐与用餐安排、住宿建议、实用注意事项等。所有信息必须真实可靠，严禁添加输入资料中不存在的内容。
+
+          输出要求
+          使用自然流畅的口语，适合直接阅读或语音播报。
+
+          不得添加任何括号内的动作、声音、表情、背景音乐等转场提示性文字。
+
+          整体长度适中，可根据城市及景点复杂程度合理控制篇幅，确保重点突出、不冗长。
+
+          如果信息充分，请按以下结构输出（可根据实际情况微调顺序）：
+
+          行程概览：一句话概括本次旅游的总体特色与推荐天数。
+
+          每日路线：按天列出具体行程安排，包括上午、下午、晚上的活动与景点，注明各景点间的交通方式与耗时。
+
+          天气与出行建议：根据当地当季气候，提供穿衣建议、防晒防雨准备、最佳出行时段等。
+
+          美食安排：推荐沿途特色餐厅或小吃，标注位置与用餐时间建议，与用户已指定的美食偏好关联。
+
+          住宿建议：推荐适合的住宿区域与酒店类型，说明与行程路线的便利性。
+
+          实用贴士：门票预订、交通卡、注意事项、避坑建议、当地文化礼仪等。
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        modelId: 10000027
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        auditing: default
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+        llmId: 10000027
+        url: wss://spark-api.xf-yun.com/x2
+        multiMode: false
+        uid: '16611811557'
+        modelName: Spark X2
+        patchId: '0'
+        isThink: true
+        templateErrMsg: ''
+        domain: spark-x
+        appId: a01c2bc7
+        maxTokens: 2048
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: spark-x
+        respFormat: 0
+        llmIdErrMsg: ''
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/largeModelIcon.png
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
+      updatable: false
+  - id: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+    dragging: false
+    selected: false
+    width: 265
+    height: 99
+    position:
+      x: 3425.134551037525
+      y: 470.0212462973242
+    positionAbsolute:
+      x: 3425.134551037525
+      y: 470.0212462973242
+    type: 工具
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 超拟人合成_1
+      labelEdit: false
+      references:
+      - children:
+        - references:
+          - originId: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+            id: a282602b-bc37-42ef-a0ca-b5c39c7d9ca4
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 大模型_2
+        parentNode: true
+        value: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+      - children:
+        - references:
+          - originId: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+            id: 35e12320-cb8b-466a-b378-c799e8e93e85
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 大模型_1
+        parentNode: true
+        value: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      - children:
+        - references:
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: aa7e0e9a-983a-4065-9b4f-ab8abee64ac1
+            label: msg
+            type: string
+            value: msg
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children:
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+              label: summary
+              type: string
+              value: result.summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9035b42e-d825-4263-a3f6-8528a1fa28c9
+              label: img
+              type: string
+              value: result.img
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: e53d48df-d96e-4297-8437-26fdf6216a86
+              label: domain
+              type: string
+              value: result.domain
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: b10e3026-a6c8-4c66-9d7b-5b45f8746e1a
+              label: name
+              type: string
+              value: result.name
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 91a0b750-a76e-4ea3-9a67-073f4e04182b
+              label: is_high_summary
+              type: boolean
+              value: result.is_high_summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: abe71f0e-67cc-488d-a114-6612ef3ddb61
+              label: siteName
+              type: string
+              value: result.siteName
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 7f9f764e-97f0-4b8e-98bc-4a4a12c315fd
+              label: source
+              type: string
+              value: result.source
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 761a52fe-70da-4ccf-b3b3-e75855621c7b
+              label: type
+              type: string
+              value: result.type
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9ba4e0bf-1e78-4eef-821d-35bfc24c186c
+              label: url
+              type: string
+              value: result.url
+              parentType: array-object
+              fileType: ''
+            id: 9a901f3c-b661-4031-aa80-36ddb68612fb
+            label: result
+            type: array-object
+            value: result
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: ee0f3baf-d730-4e15-89a8-82096ec46238
+            label: rc
+            type: string
+            value: rc
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children: [
+              ]
+            id: 52723d3e-1401-4ad5-ae2c-3556fc8b14cf
+            label: semantic
+            type: array-string
+            value: semantic
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 013fa6ca-413c-4eba-9c5a-880ee033da4f
+            label: total
+            type: string
+            value: total
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 06a39ba6-4e94-46af-a763-b54d41b0e1f1
+            label: offset
+            type: string
+            value: offset
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: f298a826-f008-457f-a571-7f5c667233ef
+            label: limit
+            type: string
+            value: limit
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 352c596e-8a0a-4046-867f-18cef84950a8
+            label: sid
+            type: string
+            value: sid
+            fileType: ''
+          label: ''
+          value: ''
+        label: bing搜索_1
+        parentNode: true
+        value: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+      - children:
+        - references:
+          - originId: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+            id: 0cba8a29-f9fd-42f4-a7a6-70b8b29792c2
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 文本处理节点_1
+        parentNode: true
+        value: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+      - children:
+        - references:
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+            label: city
+            type: string
+            value: city
+            fileType: ''
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+            label: tourist_spot
+            type: string
+            value: tourist_spot
+            fileType: ''
+          label: ''
+          value: ''
+        label: 变量提取器_2
+        parentNode: true
+        value: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+      status: ''
+      nodeMeta:
+        aliasName: 超拟人合成_1
+        nodeType: 工具
+      inputs:
+      - id: b1a7dfc0-1bf5-4e89-b624-a68a390dec57
+        name: text
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: a282602b-bc37-42ef-a0ca-b5c39c7d9ca4
+              nodeId: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+            contentErrMsg: ''
+        fileType: ''
+        description: 需要合成的文本
+        required: true
+        disabled: false
+      - id: b5979665-3ae6-4495-85fe-305948c7bd6c
+        name: vcn
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: x4_lingfeiyi_oral
+            contentErrMsg: ''
+        description: 特色发音人，目前可选（x4_lingfeiyi_oral； x4_lingxiaoxuan_oral）
+        required: true
+        disabled: false
+      - id: e112d562-7d93-4c04-b900-32d1ac6ddd14
+        name: speed
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: ''
+              nodeId: ''
+            contentErrMsg: ''
+        description: 语速：0对应默认语速的1/2，100对应默认语速的2倍; 默认值50
+        required: false
+        disabled: false
+      outputs:
+      - id: aa2b495b-4ca8-4c97-965c-b50cbd65368a
+        name: sid
+        schema:
+          type: string
+      - id: 9269ef04-4bab-448a-8508-b35c2fcd98aa
+        name: code
+        schema:
+          type: integer
+      - id: 3196c434-f321-4292-8d4c-aefdd2110c4a
+        name: msg
+        schema:
+          type: string
+      - id: 74727fb7-2000-4b49-a141-24ffb0aa59a1
+        name: data
+        schema:
+          type: object
+          properties:
+          - id: 10f97b32-21df-4de0-b73a-f9026ed8227f
+            name: voice_url
+            type: string
+      nodeParam:
+        uid: '20342301088'
+        code: ''
+        toolDescription: 用户上传一段话，选择特色发音人，生成一段更拟人的语音
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        pluginId: tool@72213899d821000
+        appId: a01c2bc7
+        operationId: 超拟人合成-7UcDosEk
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+        businessInput: [
+          ]
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/tool-icon.png
+      updatable: false
+      isLatest: true
+  - id: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+    dragging: false
+    selected: false
+    width: 361
+    height: 99
+    position:
+      x: 1634.4578188237974
+      y: 1297.0311855683142
+    positionAbsolute:
+      x: 1634.4578188237974
+      y: 1297.0311855683142
+    type: 工具
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: bing搜索_1
+      labelEdit: false
+      references:
+      - children:
+        - references:
+          - originId: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+            id: 0cba8a29-f9fd-42f4-a7a6-70b8b29792c2
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 文本处理节点_1
+        parentNode: true
+        value: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      - children:
+        - references:
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+            label: city
+            type: string
+            value: city
+            fileType: ''
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+            label: tourist_spot
+            type: string
+            value: tourist_spot
+            fileType: ''
+          label: ''
+          value: ''
+        label: 变量提取器_2
+        parentNode: true
+        value: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+      status: ''
+      nodeMeta:
+        aliasName: bing搜索_1
+        nodeType: 工具
+      inputs:
+      - id: c4d528d5-d326-4ba5-8952-cb53785046ff
+        name: name
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: 0cba8a29-f9fd-42f4-a7a6-70b8b29792c2
+              nodeId: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+            contentErrMsg: ''
+        description: 需要搜索的问题
+        required: true
+        disabled: false
+      outputs:
+      - id: aa7e0e9a-983a-4065-9b4f-ab8abee64ac1
+        name: msg
+        schema:
+          type: string
+      - id: 9a901f3c-b661-4031-aa80-36ddb68612fb
+        name: result
+        schema:
+          type: array-object
+          properties:
+          - id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+            name: summary
+            type: string
+          - id: 9035b42e-d825-4263-a3f6-8528a1fa28c9
+            name: img
+            type: string
+          - id: e53d48df-d96e-4297-8437-26fdf6216a86
+            name: domain
+            type: string
+          - id: b10e3026-a6c8-4c66-9d7b-5b45f8746e1a
+            name: name
+            type: string
+          - id: 91a0b750-a76e-4ea3-9a67-073f4e04182b
+            name: is_high_summary
+            type: boolean
+          - id: abe71f0e-67cc-488d-a114-6612ef3ddb61
+            name: siteName
+            type: string
+          - id: 7f9f764e-97f0-4b8e-98bc-4a4a12c315fd
+            name: source
+            type: string
+          - id: 761a52fe-70da-4ccf-b3b3-e75855621c7b
+            name: type
+            type: string
+          - id: 9ba4e0bf-1e78-4eef-821d-35bfc24c186c
+            name: url
+            type: string
+      - id: ee0f3baf-d730-4e15-89a8-82096ec46238
+        name: rc
+        schema:
+          type: string
+      - id: 52723d3e-1401-4ad5-ae2c-3556fc8b14cf
+        name: semantic
+        schema:
+          type: array-string
+          properties: [
+            ]
+      - id: 013fa6ca-413c-4eba-9c5a-880ee033da4f
+        name: total
+        schema:
+          type: string
+      - id: 06a39ba6-4e94-46af-a763-b54d41b0e1f1
+        name: offset
+        schema:
+          type: string
+      - id: f298a826-f008-457f-a571-7f5c667233ef
+        name: limit
+        schema:
+          type: string
+      - id: 352c596e-8a0a-4046-867f-18cef84950a8
+        name: sid
+        schema:
+          type: string
+      nodeParam:
+        uid: '20342301088'
+        code: ''
+        toolDescription: 使用网络搜索公开信息
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        pluginId: tool@665b86a9b821000
+        appId: a01c2bc7
+        operationId: 聚合搜索-hL0CqmNi
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+        businessInput: [
+          ]
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/tool-icon.png
+      updatable: false
+      isLatest: true
+  - id: message::97cc1f2c-639f-4812-8598-b4917cbe0c11
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 3384.6028572750997
+      y: 1116.3336003129332
+    positionAbsolute:
+      x: 3384.6028572750997
+      y: 1116.3336003129332
+    type: 消息
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 消息_1
+      labelEdit: false
+      references:
+      - children:
+        - references:
+          - originId: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+            id: a282602b-bc37-42ef-a0ca-b5c39c7d9ca4
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 大模型_2
+        parentNode: true
+        value: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+      - children:
+        - references:
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: aa7e0e9a-983a-4065-9b4f-ab8abee64ac1
+            label: msg
+            type: string
+            value: msg
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children:
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+              label: summary
+              type: string
+              value: result.summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9035b42e-d825-4263-a3f6-8528a1fa28c9
+              label: img
+              type: string
+              value: result.img
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: e53d48df-d96e-4297-8437-26fdf6216a86
+              label: domain
+              type: string
+              value: result.domain
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: b10e3026-a6c8-4c66-9d7b-5b45f8746e1a
+              label: name
+              type: string
+              value: result.name
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 91a0b750-a76e-4ea3-9a67-073f4e04182b
+              label: is_high_summary
+              type: boolean
+              value: result.is_high_summary
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: abe71f0e-67cc-488d-a114-6612ef3ddb61
+              label: siteName
+              type: string
+              value: result.siteName
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 7f9f764e-97f0-4b8e-98bc-4a4a12c315fd
+              label: source
+              type: string
+              value: result.source
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 761a52fe-70da-4ccf-b3b3-e75855621c7b
+              label: type
+              type: string
+              value: result.type
+              parentType: array-object
+              fileType: ''
+            - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+              id: 9ba4e0bf-1e78-4eef-821d-35bfc24c186c
+              label: url
+              type: string
+              value: result.url
+              parentType: array-object
+              fileType: ''
+            id: 9a901f3c-b661-4031-aa80-36ddb68612fb
+            label: result
+            type: array-object
+            value: result
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: ee0f3baf-d730-4e15-89a8-82096ec46238
+            label: rc
+            type: string
+            value: rc
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            children: [
+              ]
+            id: 52723d3e-1401-4ad5-ae2c-3556fc8b14cf
+            label: semantic
+            type: array-string
+            value: semantic
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 013fa6ca-413c-4eba-9c5a-880ee033da4f
+            label: total
+            type: string
+            value: total
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 06a39ba6-4e94-46af-a763-b54d41b0e1f1
+            label: offset
+            type: string
+            value: offset
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: f298a826-f008-457f-a571-7f5c667233ef
+            label: limit
+            type: string
+            value: limit
+            fileType: ''
+          - originId: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+            id: 352c596e-8a0a-4046-867f-18cef84950a8
+            label: sid
+            type: string
+            value: sid
+            fileType: ''
+          label: ''
+          value: ''
+        label: bing搜索_1
+        parentNode: true
+        value: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+      - children:
+        - references:
+          - originId: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+            id: 0cba8a29-f9fd-42f4-a7a6-70b8b29792c2
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 文本处理节点_1
+        parentNode: true
+        value: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      - children:
+        - references:
+          - originId: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+            id: 35e12320-cb8b-466a-b378-c799e8e93e85
+            label: output
+            type: string
+            value: output
+            fileType: ''
+          label: ''
+          value: ''
+        label: 大模型_1
+        parentNode: true
+        value: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+      - children:
+        - references:
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+            label: city
+            type: string
+            value: city
+            fileType: ''
+          - originId: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+            id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+            label: tourist_spot
+            type: string
+            value: tourist_spot
+            fileType: ''
+          label: ''
+          value: ''
+        label: 变量提取器_2
+        parentNode: true
+        value: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+      status: ''
+      nodeMeta:
+        aliasName: 消息_1
+        nodeType: 基础节点
+      inputs:
+      - id: 60152619-e4bf-466e-babc-40632f7e84fa
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: a282602b-bc37-42ef-a0ca-b5c39c7d9ca4
+              nodeId: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 2f5a0aed-d669-40a5-b696-31f9fac465ea
+        name: output_m
+        nameErrMsg: ''
+        schema:
+          type: string
+      nodeParam:
+        template: |2
+
+
+          {{input}}
+
+
+          -----------------------------------------
+
+          真人音频正在生成中，稍后可直接播放
+        streamOutput: true
+        uid: '20342301088'
+        apiKey: 5f93d1890c25748e68a514c62f79b8b1
+        templateErrMsg: ''
+        appId: a01c2bc7
+        startFrameEnabled: false
+        apiSecret: ODc3MDhkZjA4M2E4ZDgzODM0MmY4MzZk
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/message-node-icon.png
+      description: 在工作流中可以对中间过程的产物进行输出
+      updatable: false
+  - id: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+    dragging: false
+    selected: false
+    width: 255
+    height: 123
+    position:
+      x: 2.519690178623364
+      y: 1095.8651385816013
+    positionAbsolute:
+      x: 2.519690178623364
+      y: 1095.8651385816013
+    type: 变量提取器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 变量提取器_2
+      labelEdit: false
+      references:
+      - children:
+        - references:
+          - originId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            id: 61df8bbe-abd6-4775-bdb6-252016d15558
+            label: AGENT_USER_INPUT
+            type: string
+            value: AGENT_USER_INPUT
+            fileType: ''
+          label: ''
+          value: ''
+        label: 开始
+        parentNode: true
+        value: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+      status: ''
+      nodeMeta:
+        aliasName: 变量提取器
+        nodeType: 基础节点
+      inputs:
+      - id: 9329e9bd-8944-4934-8d06-c982782c9413
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: 61df8bbe-abd6-4775-bdb6-252016d15558
+              nodeId: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: b914dd7f-d94a-4ad7-ac0d-ab6384dee716
+        name: city
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户想要去的景点所在城市
+        required: true
+      - id: 3f3c32b1-b506-483b-8bb0-5535094cf8fe
+        name: tourist_spot
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户想要看的景点
+        required: true
+      - id: 622f799f-2019-4cb2-86de-325f39930436
+        name: food
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户想要吃的美食
+        required: true
+      nodeParam:
+        topK: 4
+        reasonMode: 1
+        auditing: default
+        llmId: 110
+        url: wss://spark-api.xf-yun.com/v4.0/chat
+        uid: '18882349618'
+        patchId: '0'
+        domain: 4.0Ultra
+        appId: 12a0a7e2
+        maxTokens: 2048
+        temperature: 0.5
+        model: spark
+        setAnswerContentErrMsg: 输出中变量名校验不通过,自动生成JSON失败
+        serviceId: bm4
+        llmIdErrMsg: ''
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-extractor-icon.png
+      description: 结合提取变量描述，将上一节点输出的自然语言进行提取
+      updatable: false
+  edges:
+  - source: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+    target: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+    type: customEdge
+    id: reactflow__edge-spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8-spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+    target: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+    type: customEdge
+    id: reactflow__edge-spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba-plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+    target: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+    type: customEdge
+    id: reactflow__edge-text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee-plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce
+    target: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+    type: customEdge
+    id: reactflow__edge-plugin::09ad4cd9-c027-44cb-9e62-c2efdb82ebce-spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba
+    target: message::97cc1f2c-639f-4812-8598-b4917cbe0c11
+    type: customEdge
+    id: reactflow__edge-spark-llm::0fefbb52-60ad-4fcd-911d-01a21b1f5cba-message::97cc1f2c-639f-4812-8598-b4917cbe0c11
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208
+    target: node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5
+    targetHandle: node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5
+    type: customEdge
+    id: reactflow__edge-plugin::a1d4a8ff-2173-4e2d-974f-f590043e8208-node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: message::97cc1f2c-639f-4812-8598-b4917cbe0c11
+    target: node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5
+    targetHandle: node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5
+    type: customEdge
+    id: reactflow__edge-message::97cc1f2c-639f-4812-8598-b4917cbe0c11-node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5node-end::2e28d038-81ad-4307-9bc4-477747ceb8c5
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+    target: spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+    type: customEdge
+    id: reactflow__edge-extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163-spark-llm::67c2f5e9-3558-4ab3-b793-1a89863075c8
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+    target: text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+    type: customEdge
+    id: reactflow__edge-extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163-text-joiner::22c61f7d-c533-4f1a-95d7-30ba6edad7ee
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc
+    target: extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+    type: customEdge
+    id: reactflow__edge-node-start::f5821026-852e-4087-a4eb-b0c0c57ff0dc-extractor-parameter::fe7ef164-9d26-479a-8d70-1581ca2ae163
+    markerEnd:
+      color: '#275EFF'
+      type: arrow
+    data:
+      edgeType: curve
